@@ -2,293 +2,124 @@
 
 # 🍽️ Haven Sanctuary
 
-### *A Luxury Indian Restaurant Experience — Powered by AI*
+**A Luxury Indian Dining Experience — Powered by Generative AI**
 
-[![Next.js](https://img.shields.io/badge/Next.js-14-black?logo=next.js)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)](https://www.typescriptlang.org/)
-[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3-38bdf8?logo=tailwindcss)](https://tailwindcss.com/)
-[![SendGrid](https://img.shields.io/badge/SendGrid-Email-blue?logo=sendgrid)](https://sendgrid.com/)
-[![Vercel](https://img.shields.io/badge/Deployed-Vercel-black?logo=vercel)](https://vercel.com/)
+[![Next.js](https://img.shields.io/badge/Next.js-14.x-black?logo=next.js&logoColor=white)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.x-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Groq AI](https://img.shields.io/badge/AI-Groq_LLaMA_3-F55036)](https://groq.com/)
+[![Upstash Redis](https://img.shields.io/badge/Cache-Upstash_Redis-00E599?logo=redis&logoColor=white)](https://upstash.com/)
+[![SendGrid](https://img.shields.io/badge/Email-SendGrid-1A82E2?logo=twilio&logoColor=white)](https://sendgrid.com/)
+[![Deployed on Vercel](https://img.shields.io/badge/Deployed_on-Vercel-black?logo=vercel&logoColor=white)](https://haven-restaurent-tau.vercel.app)
 
-> **Haven Sanctuary** is a full-stack, production-ready luxury restaurant website built for Bandra West, Mumbai. It combines immersive storytelling animations, an AI concierge powered by Groq, real-time kitchen management, OTP email authentication via SendGrid, and a complete payment flow — all wrapped in a premium dark-gold aesthetic.
-
-</div>
-
----
-
-## ✨ Features
-
-### 🏠 Immersive Homepage
-- **Cinematic Hero Section** with animated parallax and a gold-gradient "Reserve Table" CTA that smooth-scrolls to the reservation form
-- **Storytelling Scroll Canvas** — frame-by-frame canvas animation triggered by scroll position to reveal the restaurant's story
-- **After Drinks Storyteller Canvas** — a second sequential canvas animation for the evening experience
-- **Favorites Showcase** — horizontally scrollable signature dish cards with hover animations
-- **House of Drinks Section** — curated cocktail and beverage showcase with signature gold card design
-- **Night Experience Section** — immersive dusk-to-night atmosphere reveal
-- **The Space Gallery** — full-width photo gallery with lightbox-style reveal
-- **Contact & Reservation Section** — full reservation form with date/time validation, WhatsApp pre-fill link, and SendGrid email confirmation
-
-### 🤖 AI Sommelier (Groq-Powered)
-- Floating AI chat widget powered by **Groq LLaMA** via a secure backend API
-- Context-aware responses: live menu items, table status, and order data are injected into every prompt
-- **Role-based quick prompts**:
-  - **Customer** → wine pairings, chef signatures, vegetarian options, table booking
-  - **Staff / Kitchen** → pending orders, table overview, sold-out marking
-  - **Manager** → daily performance, inventory warnings, peak hour prediction
-- Animated chat drawer with message timestamps and AI/user avatars
-
-### 🔐 Authentication (Email OTP via SendGrid + Redis)
-- User signs up → 6-digit OTP generated and sent to their **email via SendGrid**
-- OTP stored in **Upstash Redis** with a **10-minute TTL**
-- **Rate limiting**: max 5 OTP requests per email per hour
-- OTP is verified server-side and deleted immediately after use (one-time use)
-- Clean 6-digit input boxes with auto-focus progression
-- **Google OAuth** quick sign-in option
-- Role-based access: `customer`, `staff`, `admin`
-
-### 📋 Digital Menu
-- Full menu with categories: Starters, Mains, Breads, Beverages, Desserts
-- Add-to-cart with quantity controls
-- Signature dish badges, calorie counts, prep time indicators
-- Responsive grid layout with hover micro-animations
-
-### 🛒 Cart & Checkout
-- Slide-out Cart Drawer with live total calculation
-- Dedicated `/checkout` page
-- Seamless transition to payment modal
-
-### 💳 Payment Flow (HavenPaymentModal)
-- Multi-step payment modal supporting:
-  - **Credit/Debit Card** — with 3D flip animation on focus, real-time card number formatting, Luhn validation, expiry/CVV checks
-  - **UPI** — QR code display + UPI ID input
-  - **Wallets** — PhonePe, Google Pay, Paytm
-- **Payment Timer** — 10-minute countdown with visual urgency indicator
-- On success:
-  - Sends **payment receipt email via SendGrid** to the guest
-  - Opens a **WhatsApp pre-filled message** to the restaurant with transaction details
-  - Creates a live order in the kitchen system
-  - Displays animated success screen with transaction reference
-
-### 🍳 Kitchen & Operations (Staff Dashboard)
-- **KDS Kanban Board** — drag-free order pipeline: Pending → Preparing → Ready → Served
-- **Live Order Tracker** — real-time order status feed visible to customers at `/`
-- **Table Map Grid** — interactive floor plan showing occupied/available/reserved tables
-- **Waitlist Queue** — manage walk-in guest queue with estimated wait times
-- **Staff Dashboard** at `/dashboard` — role-gated for `staff` and `admin` roles
-
-### 📧 Email Notifications (SendGrid)
-| Trigger | Recipient | Content |
-|---|---|---|
-| OTP Request | Guest | 6-digit verification code |
-| Reservation Confirmed | Guest + Restaurant | Booking details, table number, date/time |
-| Payment Confirmed | Guest | Transaction ID, amount, itemised summary |
-
-### 📱 WhatsApp Integration
-- Reservation confirmation → pre-filled WhatsApp message to guest's number (or restaurant fallback)
-- Payment confirmation → pre-filled WhatsApp message to restaurant number
-- Uses `wa.me` deep-link format — no API keys required
-
----
-
-## 🏗️ Tech Stack
-
-| Layer | Technology |
-|---|---|
-| **Framework** | Next.js 14 (App Router) |
-| **Language** | TypeScript 5 |
-| **Styling** | Tailwind CSS + custom design tokens |
-| **Animations** | Framer Motion |
-| **Icons** | Lucide React |
-| **AI** | Groq API (LLaMA 3) |
-| **Email** | SendGrid (`@sendgrid/mail`) |
-| **OTP Store** | Upstash Redis (`@upstash/redis`) |
-| **Auth** | NextAuth.js v4 |
-| **State** | Zustand (via custom store context) |
-| **Deployment** | Vercel |
-
----
-
-## 📁 Project Structure
-
-```
-src/
-├── app/
-│   ├── page.tsx                    # Homepage (all sections assembled)
-│   ├── layout.tsx                  # Root layout with fonts & metadata
-│   ├── globals.css                 # Global styles & design tokens
-│   ├── menu/page.tsx               # Digital menu page
-│   ├── reservations/page.tsx       # Reservations page
-│   ├── checkout/page.tsx           # Checkout page
-│   ├── dashboard/page.tsx          # Staff/Admin dashboard
-│   └── api/
-│       ├── ai/chat/route.ts        # Groq AI chat endpoint
-│       ├── auth/send-otp/route.ts  # OTP generation + SendGrid email
-│       ├── auth/verify-otp/route.ts # OTP verification + Redis delete
-│       ├── send-confirmation/route.ts      # Reservation email
-│       └── send-payment-confirmation/route.ts # Payment receipt email
-├── components/
-│   ├── Navbar.tsx                  # Responsive navbar with role badges
-│   ├── AuthModal.tsx               # Email OTP auth modal
-│   ├── AIAssistantWidget.tsx       # Floating AI Sommelier chat
-│   ├── DigitalMenu.tsx             # Full menu with cart controls
-│   ├── HavenPaymentModal.tsx       # Multi-method payment modal
-│   ├── ContactReservationSection.tsx # Reservation form + WhatsApp
-│   ├── CartDrawer.tsx              # Slide-out shopping cart
-│   ├── KDSKanban.tsx               # Kitchen Display System
-│   ├── LiveOrderTracker.tsx        # Real-time order status
-│   ├── TableMapGrid.tsx            # Restaurant floor plan
-│   ├── WaitlistQueue.tsx           # Walk-in queue management
-│   ├── StorytellingScrollCanvas.tsx # Scroll-triggered canvas animation
-│   ├── AfterDrinksStorytellerCanvas.tsx # Evening story animation
-│   ├── FavoritesShowcaseSection.tsx # Signature dishes showcase
-│   ├── HouseOfDrinksSection.tsx    # Cocktail & drinks section
-│   ├── TheSpaceGallery.tsx         # Photo gallery
-│   ├── Card3D.tsx                  # 3D tilt card component
-│   ├── PaymentTimer.tsx            # Payment countdown timer
-│   └── ...
-└── lib/
-    ├── store.tsx                   # Global state (Zustand)
-    ├── redis.ts                    # Upstash Redis client
-    ├── auth.ts                     # NextAuth configuration
-    ├── emailValidation.ts          # Email format validator
-    ├── cardValidation.ts           # Luhn card number validator
-    ├── format.ts                   # Price & date formatters
-    └── validation.ts               # General form validators
-```
-
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Node.js 18+
-- npm or yarn
-- Accounts at: [Groq](https://console.groq.com), [Upstash](https://upstash.com), [SendGrid](https://sendgrid.com)
-
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/akashneetakash-netize/restaurent-website.git
-cd restaurent-website
-```
-
-### 2. Install dependencies
-
-```bash
-npm install
-```
-
-### 3. Configure environment variables
-
-Copy `.env.example` to `.env.local` and fill in your values:
-
-```bash
-cp .env.example .env.local
-```
-
-```env
-# Auth
-NEXTAUTH_SECRET=your_long_random_secret
-NEXTAUTH_URL=http://localhost:3000
-
-# AI (Groq)
-GROQ_API_KEY=gsk_your_groq_api_key
-
-# Upstash Redis (OTP storage)
-UPSTASH_REDIS_REST_URL=https://your-db.upstash.io
-UPSTASH_REDIS_REST_TOKEN=your_upstash_token
-
-# SendGrid (Email)
-SENDGRID_API_KEY=SG.your_sendgrid_api_key
-SENDGRID_FROM_EMAIL=noreply@yourdomain.com
-RESTAURANT_EMAIL=restaurant@yourdomain.com
-
-# WhatsApp (public)
-NEXT_PUBLIC_RESTAURANT_WHATSAPP=919876543210
-```
-
-### 4. Run the development server
-
-```bash
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) in your browser.
-
----
-
-## ☁️ Deploying to Vercel
-
-1. Push this repo to GitHub
-2. Go to [vercel.com](https://vercel.com) → **Import Project** → select your repo
-3. Add all environment variables from `.env.example` in the Vercel dashboard under **Settings → Environment Variables**
-4. Update `NEXTAUTH_URL` to your Vercel deployment URL (e.g. `https://haven-sanctuary.vercel.app`)
-5. Click **Deploy** ✅
-
-> [!IMPORTANT]
-> After deploying, update `NEXTAUTH_URL` to your actual Vercel URL, otherwise auth redirects will fail.
-
----
-
-## 🔑 API Routes
-
-| Method | Route | Description |
-|---|---|---|
-| `POST` | `/api/auth/send-otp` | Generates & emails 6-digit OTP (rate limited: 5/hr) |
-| `POST` | `/api/auth/verify-otp` | Verifies OTP and deletes from Redis |
-| `POST` | `/api/send-confirmation` | Sends reservation confirmation email |
-| `POST` | `/api/send-payment-confirmation` | Sends payment receipt email |
-| `POST` | `/api/ai/chat` | Streams AI Sommelier response from Groq |
-
----
-
-## 🎨 Design System
-
-The project uses a custom Tailwind design system with premium tokens:
-
-| Token | Value | Usage |
-|---|---|---|
-| `haven-bg` | `#0D0C14` | Page background |
-| `haven-card` | `#16141F` | Card surfaces |
-| `haven-surface` | `#1E1C29` | Input backgrounds |
-| `haven-gold` | `#C9A034` | Primary accent, CTAs |
-| `haven-text-primary` | `#F5F0E8` | Headings |
-| `haven-text-secondary` | `#B8AFA0` | Body text |
-| `bg-gold-gradient` | `linear-gradient(...)` | Buttons, highlights |
-
----
-
-## 📸 Pages Overview
-
-| Route | Description |
-|---|---|
-| `/` | Full homepage — hero, storytelling, menu preview, gallery, reservations |
-| `/menu` | Complete digital menu with cart |
-| `/reservations` | Dedicated reservation page |
-| `/checkout` | Checkout with payment modal |
-| `/dashboard` | Staff/Admin operations dashboard (role-gated) |
-
----
-
-## 🛡️ Security
-
-- `.env.local` is **gitignored** — secrets are never committed
-- OTPs are stored in Redis with a 10-minute expiry and deleted on first use
-- Rate limiting prevents OTP spam (max 5 requests per email per hour)
-- All API routes are server-side only — no secrets exposed to the browser
-
----
-
-## 📄 License
-
-This project was built for **Vibeathon 2026** — a luxury restaurant hackathon experience.
-
----
-
-<div align="center">
-
-Built with ❤️ for **Haven Sanctuary, Bandra West, Mumbai**
-
-*"Where every meal is a memory."*
+[Live Demo](https://haven-restaurent-tau.vercel.app) · [Report Bug](https://github.com/imashwin-max/Haven-Restaurent/issues) · [Request Feature](https://github.com/imashwin-max/Haven-Restaurent/issues)
 
 </div>
+
+---
+
+## 📖 Overview
+
+**Haven Sanctuary** is an end-to-end, production-ready web platform developed for a luxury dining venue in Bandra West, Mumbai. Blending high-end design aesthetics with robust engineering, the application provides scroll-driven interactive narratives, an intelligent AI Sommelier, automated passwordless email authentication, instant booking updates, and a complete operational kitchen backend.
+
+---
+
+## ✨ Key Features
+
+### 🏛️ Immersive Storytelling & Visual Experience
+- **Cinematic Hero:** Fluid gold-gradient call-to-actions, parallax depth, and smooth-scroll reservation triggers.
+- **Dual Scroll Storytelling Canvases:** Frame-by-frame canvas renderers triggered on scroll to unveil the culinary craft and the evening atmosphere.
+- **Curated Sections:** Interactive **House of Drinks** cocktail showcase, horizontally scrollable signature dishes with hover depth, and a dynamic lightbox photo gallery.
+
+### 🤖 AI Sommelier (Groq LLaMA 3)
+- Real-time conversational AI widget dynamically hydrated with live menu items, reservation states, and order details.
+- Contextual quick-action prompts tailored by role:
+  - **Guests:** Wine pairings, chef selections, dietary considerations, and table inquiries.
+  - **Staff:** Pending queue status, floor availability, and item 86-lists.
+  - **Management:** Daily run rates, peak-hour forecasts, and inventory alerts.
+
+### 🔐 Passwordless Authentication (SendGrid + Upstash Redis)
+- 6-digit OTP delivery via SendGrid with auto-advancing input fields.
+- Upstash Redis storage with a strictly enforced **10-minute TTL** and instant single-use deletion.
+- Rate-limited generation (maximum 5 OTP dispatches per email per hour) alongside Google OAuth fallback via NextAuth.js.
+- Granular role-based access control (`customer`, `staff`, `admin`).
+
+### 💳 Complete Checkout & 3D Payment Flow
+- Multi-channel slide-out cart and dedicated `/checkout` interface.
+- Interactive payment modal featuring:
+  - **Credit/Debit Cards:** 3D flip card dynamics on focus, live formatting, and Luhn algorithm validation.
+  - **UPI & Digital Wallets:** Instant QR-code generator with PhonePe, Google Pay, and Paytm compatibility.
+  - **Urgency Mechanism:** Visual 10-minute countdown session timer.
+- Automatic dispatch of SendGrid payment receipts and pre-filled WhatsApp confirmation links.
+
+### 🍳 Staff & Operations Dashboard (`/dashboard`)
+- **KDS Kanban Board:** Order tracking through sequential stages: `Pending` → `Preparing` → `Ready` → `Served`.
+- **Floor Map & Waitlist Grid:** Live interactive table layout showing seating occupancy, reservations, and walk-in queue management.
+- **Customer Live Tracker:** Real-time progress updates accessible to guests.
+
+---
+
+## 🛠️ Architecture & Tech Stack
+
+| Layer | Technology | Purpose |
+| :--- | :--- | :--- |
+| **Framework** | Next.js 14 (App Router) | Server-side rendering, streaming, and API routing |
+| **Language** | TypeScript 5 | Type safety across client components and API payloads |
+| **Styling** | Tailwind CSS | Luxury obsidian-gold design system |
+| **Motion** | Framer Motion | Canvas reveals, modal transitions, and 3D card tilt |
+| **AI Engine** | Groq SDK (LLaMA 3) | Low-latency conversational concierge endpoint |
+| **Database & Cache** | Upstash Redis | Ephemeral OTP storage and rate limiting |
+| **Auth** | NextAuth.js v4 | Session management and OAuth handshakes |
+| **Communications** | SendGrid Mail API | Transactional emails, booking confirmations, and OTPs |
+| **State** | Zustand | Global cart, UI, and live ordering states |
+
+---
+
+## 🎨 Design Tokens
+
+| Token | Hex Value | Application |
+| :--- | :--- | :--- |
+| `--haven-bg` | `#0D0C14` | Base dark background |
+| `--haven-card` | `#16141F` | Elevated containers and card surfaces |
+| `--haven-surface` | `#1E1C29` | Form inputs, popovers, and chat drawer |
+| `--haven-gold` | `#C9A034` | Brand accent, badges, and primary buttons |
+| `--haven-text-primary` | `#F5F0E8` | High-contrast editorial typography |
+| `--haven-text-secondary` | `#B8AFA0` | Muted descriptions and secondary metadata |
+
+---
+
+## 📁 Repository Structure
+
+```text
+Haven-Restaurent/
+├── src/
+│   ├── app/
+│   │   ├── api/
+│   │   │   ├── ai/chat/route.ts                    # Groq streaming AI endpoint
+│   │   │   ├── auth/send-otp/route.ts              # Redis OTP creation & SendGrid dispatch
+│   │   │   ├── auth/verify-otp/route.ts            # OTP validation & cleanup
+│   │   │   ├── send-confirmation/route.ts          # Reservation notification
+│   │   │   └── send-payment-confirmation/route.ts  # Payment receipt dispatch
+│   │   ├── checkout/page.tsx                       # Checkout & payment view
+│   │   ├── dashboard/page.tsx                      # Staff KDS & table management
+│   │   ├── menu/page.tsx                           # Interactive menu catalog
+│   │   ├── reservations/page.tsx                   # Table reservation booking
+│   │   ├── layout.tsx
+│   │   └── page.tsx                                # Main luxury landing experience
+│   ├── components/
+│   │   ├── AIAssistantWidget.tsx                   # Floating Groq chatbot
+│   │   ├── AuthModal.tsx                           # OTP verification modal
+│   │   ├── Card3D.tsx                              # 3D interactive tilt cards
+│   │   ├── CartDrawer.tsx                          # Global cart interface
+│   │   ├── HavenPaymentModal.tsx                   # Multi-method checkout modal
+│   │   ├── KDSKanban.tsx                           # Kitchen order management
+│   │   ├── StorytellingScrollCanvas.tsx            # Scroll-driven narrative canvas
+│   │   └── TableMapGrid.tsx                        # Floor plan management
+│   └── lib/
+│       ├── auth.ts                                 # NextAuth strategy
+│       ├── redis.ts                                # Upstash Redis connection
+│       ├── store.tsx                               # Global state machine (Zustand)
+│       └── validation.ts                           # Luhn and input validation
+├── supabase/migrations/                            # Database schemas
+├── tailwind.config.js
+└── next.config.js
